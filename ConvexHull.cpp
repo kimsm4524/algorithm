@@ -4,15 +4,15 @@
 
 using namespace std;
 pair<int,int> ex1;
-//YÁÂÇ¥°¡ °¡Àå ÀÛÀº Á¡À» ÀúÀåÇÏ±â À§ÇÑ ¼±¾ğ
+//Yì¢Œí‘œê°€ ê°€ì¥ ì‘ì€ ì ì„ ì €ì¥í•˜ê¸° ìœ„í•œ ì„ ì–¸
 bool cmp(const pair<int,int> &a, const pair<int,int> &b)
 {
-    //YÁÂÇ¥¿¡ ´ëÇØ Á¤·Ä
+    //Yì¢Œí‘œì— ëŒ€í•´ ì •ë ¬
     return a.second<b.second;
 }
 bool cmp2(const pair<int,int> &a, const pair<int,int> &b)
 {
-    //YÁÂÇ¥°¡ °¡Àå ÀÛÀº Á¡°ú ÀÌ·ç´Â °¢µµÀÇ Å©±â¿¡ ´ëÇÑ Á¤·Ä
+    //Yì¢Œí‘œê°€ ê°€ì¥ ì‘ì€ ì ê³¼ ì´ë£¨ëŠ” ê°ë„ì˜ í¬ê¸°ì— ëŒ€í•œ ì •ë ¬
     float ta =(float)(a.second-ex1.second)/(float)(a.first+a.second-ex1.first-ex1.second);
     float tb =(float)(b.second-ex1.second)/(float)(b.first+b.second-ex1.first-ex1.second);
     return ta<tb;
@@ -21,43 +21,43 @@ int main()
 {
     int n,m;
     cin>>n>>m;
-    //N : N*N ÀÇ Å©±â, M Á¡ÀÇ ¼ö
+    //N : N*N ì˜ í¬ê¸°, M ì ì˜ ìˆ˜
     vector<pair <int,int> > dots;
-    //Á¡µéÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â º¤ÅÍ
+    //ì ë“¤ì˜ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” ë²¡í„°
     for(int i=0;i<m;i++)
     {
-        //°¢ Á¡µéÀÇ Á¤º¸ ÀÔ·Â
+        //ê° ì ë“¤ì˜ ì •ë³´ ì…ë ¥
         int tempx,tempy;
         cin>>tempx>>tempy;
         dots.push_back(make_pair(tempx,tempy));
     }
     sort(dots.begin(),dots.end(),cmp);
-    //YÁÂÇ¥°¡ °¡Àå ÀÛÀº Á¡ Ã£±â
+    //Yì¢Œí‘œê°€ ê°€ì¥ ì‘ì€ ì  ì°¾ê¸°
     ex1=dots[0];
     dots.erase(dots.begin());
-    //1¹ø Á¡Àº º¤ÅÍ¿¡¼­ »èÁ¦ÇÑ´Ù.
+    //1ë²ˆ ì ì€ ë²¡í„°ì—ì„œ ì‚­ì œí•œë‹¤.
     sort(dots.begin(),dots.end(),cmp2);
-    //1¹ø Á¡°ú ÀÌ·ç´Â °¢µµ¿¡ ´ëÇØ Á¤·Ä
+    //1ë²ˆ ì ê³¼ ì´ë£¨ëŠ” ê°ë„ì— ëŒ€í•´ ì •ë ¬
     pair<int,int> ex2=dots[0];
     int count =0;
-    //´Ù°¢Çü ¾È¿¡ ÀÖ´Â Á¡ÀÇ ¼ö
+    //ë‹¤ê°í˜• ì•ˆì— ìˆëŠ” ì ì˜ ìˆ˜
     for(int i=1;i<m-1;i++)
     {
         pair<int,int> temp = dots[i];
-        int cross;//¿ÜÀû
+        int cross;//ì™¸ì 
         cross = (ex2.first-ex1.first)*(temp.second-ex2.second)-(temp.first-ex2.first)*(ex2.second-ex1.second);
-        //¿ÜÀû °è»ê
-        if(cross<0)//¿ÜÀûÀÇ Å©±â°¡ 0º¸´Ù ÀÛ´Ù¸é 180µµ ¹Ì¸¸
+        //ì™¸ì  ê³„ì‚°
+        if(cross<0)//ì™¸ì ì˜ í¬ê¸°ê°€ 0ë³´ë‹¤ ì‘ë‹¤ë©´ 180ë„ ë¯¸ë§Œ
         {
             count++;
         }
-        else//¿ÜÀûÀÇ Å©±â°¡ 0º¸´Ù Å©´Ù¸é 180µµ ÀÌ»ó
+        else//ì™¸ì ì˜ í¬ê¸°ê°€ 0ë³´ë‹¤ í¬ë‹¤ë©´ 180ë„ ì´ìƒ
         {
             ex1=ex2;
             ex2=temp;
         }
     }
     cout<<m-count<<" "<<count;
-    //m-count : º¼·Ï ´Ù°¢ÇüÀ» ÀÌ·ç´Â Á¡ÀÇ ¼ö, count, º¼·Ï ´Ù°¢Çü ¾È¿¡ Æ÷ÇÔµÇ´Â Á¡ÀÇ ¼ö
+    //m-count : ë³¼ë¡ ë‹¤ê°í˜•ì„ ì´ë£¨ëŠ” ì ì˜ ìˆ˜, count, ë³¼ë¡ ë‹¤ê°í˜• ì•ˆì— í¬í•¨ë˜ëŠ” ì ì˜ ìˆ˜
     return 0;
 }
